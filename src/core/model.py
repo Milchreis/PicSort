@@ -12,7 +12,7 @@ from core.input import InputProcessor
 from gui.window import WindowApp
 from core.render import ScreenRenderer
 from core.pluginmanager import PluginManager
-from core import tools
+from core import tools, autorotate
 
 class AppModel():
 
@@ -32,6 +32,7 @@ class AppModel():
         
         self.isrunning = True
         
+        self.original = None
         self.img = None
         
         self.windowapp = WindowApp(self)
@@ -46,6 +47,8 @@ class AppModel():
         
         self.showHelp = True
         self.showNumbers = True
+        
+        self.isRotated = False
        
         for plugin in self.pluginmanager.plugins:
             try:
@@ -61,6 +64,15 @@ class AppModel():
         self.windowapp.mainWindow.Hide()
         self.renderer.start()
         
+        
+    def checkRotation(self):
+        img = autorotate.autoRotate(self.images[self.counter], self.img)
+        if not img == None:
+            self.original = autorotate.autoRotate(self.images[self.counter], self.original)
+            self.img = resizeImage(img, (self.windowWidth, self.windowHeight))
+            self.isRotated = True
+        else:
+            self.isRotated = False
 
     def changeTheme(self):
         self.windowapp.openThemeWindow()
@@ -83,8 +95,9 @@ class AppModel():
 
 
     def loadAndScaleImage(self, imgPath):
-        self.img = loadImage(imgPath)
-        self.img = resizeImage(self.img, (self.windowWidth, self.windowHeight))
+        
+        self.original = loadImage(imgPath)
+        self.img = resizeImage(self.original, (self.windowWidth, self.windowHeight))
 
 
     def getNextImage(self):

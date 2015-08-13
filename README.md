@@ -57,8 +57,8 @@ The following list includes the changes in the current code base to the lastest 
  - view images in fullscreen
  - navigate thru the image pool
  - set up themes and copy images
+ - auto rotating pictures by exif information
  - build-in plugins
- 	 - auto rotating pictures by exif information
  	 - minimap (shows the previous and next images)
  	 - delete image (provides the deletion of the source file)
  	 - image numbers (shows the current number of the image and the maximum)

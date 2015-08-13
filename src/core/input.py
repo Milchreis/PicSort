@@ -21,9 +21,11 @@ class InputProcessor():
             
         if event.type == pygame.KEYUP and event.key == pygame.K_RIGHT:
             self.model.getNextImage()
+            self.model.checkRotation()
         
         if event.type == pygame.KEYUP and event.key == pygame.K_LEFT:
             self.model.getPreviousImage()
+            self.model.checkRotation()
 
         if event.type == pygame.KEYUP and (event.key == pygame.K_LCTRL or event.key == pygame.K_RCTRL):
             self.model.renderer.setFullscreen(False)
